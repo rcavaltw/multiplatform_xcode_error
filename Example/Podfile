@@ -4,7 +4,7 @@ inhibit_all_warnings!
 workspace 'Example'
 
 def shared_pods
-  pod 'Kingfisher', '~> 4.0'
+  pod 'Clappr', '0.11.41'
 end
 
 def ios_pods

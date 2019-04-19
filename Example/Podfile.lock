@@ -1,16 +1,16 @@
 PODS:
-  - Kingfisher (4.10.1)
+  - Clappr (0.11.41)
 
 DEPENDENCIES:
-  - Kingfisher (~> 4.0)
+  - Clappr (= 0.11.41)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Kingfisher
+    - Clappr
 
 SPEC CHECKSUMS:
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  Clappr: c77842846f0455249f370f3ac9f6ae1c1481d3fa
 
-PODFILE CHECKSUM: fb828afb1948c7239feb5f42d8a6fa281b7b8a25
+PODFILE CHECKSUM: 151c4f364aadde6295e319841c7458170f3d3284
 
 COCOAPODS: 1.6.1

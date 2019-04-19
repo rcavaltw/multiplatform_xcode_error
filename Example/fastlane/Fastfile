@@ -1,4 +1,4 @@
-fastlane_version "2.116.0"
+fastlane_version "2.120.0"
  
 before_all do
   cocoapods(try_repo_update_on_error: true)
@@ -28,15 +28,15 @@ lane :build_ios do
 
   xc_build(
     scheme: 'Example',
-    sdk: 'iphoneos',
-    derivedDataPath: 'build/iOS-iphoneos',
+    sdk: 'iphonesimulator',
+    derivedDataPath: 'build/iOS-iphonesimulator',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
   )
 
   xc_build(
     scheme: 'Example',
-    sdk: 'iphonesimulator',
-    derivedDataPath: 'build/iOS-iphonesimulator',
+    sdk: 'iphoneos',
+    derivedDataPath: 'build/iOS-iphoneos',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
   )
 
