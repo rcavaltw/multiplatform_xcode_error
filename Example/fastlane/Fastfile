@@ -1,0 +1,99 @@
+fastlane_version "2.116.0"
+ 
+before_all do
+  cocoapods(try_repo_update_on_error: true)
+end
+
+private_lane :xc_build do |params|
+  xcodebuild(
+    workspace: "Example.xcworkspace",
+    scheme: params[:scheme],
+    configuration: 'Release',
+    sdk: params[:sdk],
+    derivedDataPath: params[:derivedDataPath],
+    clean: true,
+    build: true,
+    xcargs: params[:xcargs]
+  )
+end
+
+desc "Build iOS and tvOS"
+lane :build do
+  build_ios
+  build_tvos
+end
+
+lane :build_ios do
+  remove_previous_builds_of(platform: "iOS")
+
+  xc_build(
+    scheme: 'Example',
+    sdk: 'iphoneos',
+    derivedDataPath: 'build/iOS-iphoneos',
+    xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
+  )
+
+  xc_build(
+    scheme: 'Example',
+    sdk: 'iphonesimulator',
+    derivedDataPath: 'build/iOS-iphonesimulator',
+    xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
+  )
+
+  make_universal_framework(
+    universal_framework_folder: "Framework/iOS",
+    device_framework_folder: "build/iOS-iphoneos/Build/Products/Release-iphoneos",
+    simulator_framework_folder: "build/iOS-iphonesimulator/Build/Products/Release-iphonesimulator"
+  )
+end
+
+lane :build_tvos do
+  remove_previous_builds_of(platform: "tvOS")
+
+  xc_build(
+    scheme: 'Example_tvOS',
+    sdk: 'appletvos',
+    derivedDataPath: 'build/tvOS-appletvos',
+    xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}' BITCODE_GENERATION_MODE=bitcode ENABLE_BITCODE=YES"
+  )
+
+  xc_build(
+    scheme: 'Example_tvOS',
+    sdk: 'appletvsimulator',
+    derivedDataPath: 'build/tvOS-appletvsimulator',
+    xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}' BITCODE_GENERATION_MODE=bitcode ENABLE_BITCODE=YES"
+  )
+
+  make_universal_framework(
+    universal_framework_folder: "Framework/tvOS",
+    device_framework_folder: "build/tvOS-appletvos/Build/Products/Release-appletvos",
+    simulator_framework_folder: "build/tvOS-appletvsimulator/Build/Products/Release-appletvsimulator"
+  )
+end
+
+
+desc "Clean all build folders of the platform"
+private_lane :remove_previous_builds_of do |param|
+  Dir.chdir("..") do
+    sh("rm -rf build/" + param[:platform])
+    sh("rm -rf Framework/" + param[:platform])
+  end
+end
+
+desc "Makes Example.framework a Universal Framework"
+private_lane :make_universal_framework do |options|
+  UI.important ("Generating universal framework in " + options[:universal_framework_folder])
+  Dir.chdir("..") do
+    sh("mkdir -p " + options[:universal_framework_folder])
+    sh("cp -r " + options[:device_framework_folder] + "/Example.framework "+ options[:universal_framework_folder])
+    sh("cp -r " + options[:simulator_framework_folder] + "/Example.framework/Modules/Example.swiftmodule " + options[:universal_framework_folder] + "/Example.framework/Modules/")
+    sh("lipo -create -output '" + options[:universal_framework_folder] +"/Example.framework/Example' '" + options[:simulator_framework_folder] + "/Example.framework/Example' '" + options[:device_framework_folder] + "/Example.framework/Example'")
+    UI.success("Successfully created universal framework. 💪")
+  end
+end
+
+after_all do |lane|
+end
+
+error do |lane, exception|
+end

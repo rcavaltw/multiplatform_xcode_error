@@ -1,0 +1,32 @@
+use_frameworks!
+inhibit_all_warnings!
+
+workspace 'Example'
+
+def shared_pods
+  pod 'Kingfisher', '~> 4.0'
+end
+
+def ios_pods
+    platform :ios, '9.3'
+    shared_pods
+end
+ 
+target 'Example' do
+    ios_pods
+end
+
+target 'ExampleTests' do
+  ios_pods
+end
+
+target 'Example_tvOS' do
+    platform :tvos, '10.0'
+    shared_pods
+end
+
+
+target 'Example_tvOSTests' do
+  platform :tvos, '10.0'
+  shared_pods
+end
