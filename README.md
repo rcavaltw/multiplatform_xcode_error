@@ -5,7 +5,8 @@ In order to reproduce the problem:
 2. Open `example.xcworkspace` in Xcode
 3. Build the `Example` scheme. It should build perfectly
 4. Now at the terminal, go to the `Example` folder
-5. run `bundle exec fastlane build_ios`. If the build runs perfectly, try executing the same comand again.
+5. make sure your xcode build version is +10.2 with `xcodebuild -version`
+6. run `bundle exec fastlane build_ios`. If the build runs perfectly, try executing the same comand again.
 
 You'll notice that the build logs:
 ```
@@ -15,3 +16,4 @@ You'll notice that the build logs:
 
 xcodebuild will try to process `Clappr-tvOS-Info.plist`, which it is not supposed to do, as it is this is an iOS build, and the plist refers to a tvOS bundle. The warning log also indicates that. The build will fail as other resources are not present in iphoneos.
 
+The same steps will work if you use xcodebuild 10.1
