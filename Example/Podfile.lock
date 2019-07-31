@@ -1,16 +1,22 @@
 PODS:
-  - Clappr (0.11.41)
+  - Clappr (0.22.0)
 
 DEPENDENCIES:
-  - Clappr (= 0.11.41)
+  - Clappr (from `https://github.com/clappr/clappr-ios.git`, branch `feature/rename_targets`)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Clappr
+EXTERNAL SOURCES:
+  Clappr:
+    :branch: feature/rename_targets
+    :git: https://github.com/clappr/clappr-ios.git
+
+CHECKOUT OPTIONS:
+  Clappr:
+    :commit: 3d402cff533f3f450348b4ef83b8331a82adabdc
+    :git: https://github.com/clappr/clappr-ios.git
 
 SPEC CHECKSUMS:
-  Clappr: c77842846f0455249f370f3ac9f6ae1c1481d3fa
+  Clappr: f741ee55e05177a32858e8b02b3084598948c778
 
-PODFILE CHECKSUM: 151c4f364aadde6295e319841c7458170f3d3284
+PODFILE CHECKSUM: 5d82fc9d021b7de41fbecb50aa099ffc9e574c69
 
 COCOAPODS: 1.6.1

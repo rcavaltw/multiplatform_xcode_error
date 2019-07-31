@@ -29,21 +29,21 @@ lane :build_ios do
   xc_build(
     scheme: 'Example',
     sdk: 'iphonesimulator',
-    derivedDataPath: 'build/iOS-iphonesimulator',
+    derivedDataPath: 'build/iOS/iOS-iphonesimulator',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
   )
 
   xc_build(
     scheme: 'Example',
     sdk: 'iphoneos',
-    derivedDataPath: 'build/iOS-iphoneos',
+    derivedDataPath: 'build/iOS/iOS-iphoneos',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}'"
   )
 
   make_universal_framework(
     universal_framework_folder: "Framework/iOS",
-    device_framework_folder: "build/iOS-iphoneos/Build/Products/Release-iphoneos",
-    simulator_framework_folder: "build/iOS-iphonesimulator/Build/Products/Release-iphonesimulator"
+    device_framework_folder: "build/iOS/iOS-iphoneos/Build/Products/Release-iphoneos",
+    simulator_framework_folder: "build/iOS/iOS-iphonesimulator/Build/Products/Release-iphonesimulator"
   )
 end
 
@@ -53,21 +53,21 @@ lane :build_tvos do
   xc_build(
     scheme: 'Example_tvOS',
     sdk: 'appletvos',
-    derivedDataPath: 'build/tvOS-appletvos',
+    derivedDataPath: 'build/tvOS/tvOS-appletvos',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}' BITCODE_GENERATION_MODE=bitcode ENABLE_BITCODE=YES"
   )
 
   xc_build(
     scheme: 'Example_tvOS',
     sdk: 'appletvsimulator',
-    derivedDataPath: 'build/tvOS-appletvsimulator',
+    derivedDataPath: 'build/tvOS/tvOS-appletvsimulator',
     xcargs: "GCC_PREPROCESSOR_DEFINITIONS='${inherited}' BITCODE_GENERATION_MODE=bitcode ENABLE_BITCODE=YES"
   )
 
   make_universal_framework(
     universal_framework_folder: "Framework/tvOS",
-    device_framework_folder: "build/tvOS-appletvos/Build/Products/Release-appletvos",
-    simulator_framework_folder: "build/tvOS-appletvsimulator/Build/Products/Release-appletvsimulator"
+    device_framework_folder: "build/tvOS/tvOS-appletvos/Build/Products/Release-appletvos",
+    simulator_framework_folder: "build/tvOS/tvOS-appletvsimulator/Build/Products/Release-appletvsimulator"
   )
 end
 
