@@ -4,11 +4,11 @@ inhibit_all_warnings!
 workspace 'Example'
 
 def shared_pods
-  pod 'Clappr', '0.11.41'
+  pod 'Clappr', :git => 'https://github.com/clappr/clappr-ios.git', :branch => 'feature/rename_targets'
 end
 
 def ios_pods
-    platform :ios, '9.3'
+    platform :ios, '10.0'
     shared_pods
 end
  
